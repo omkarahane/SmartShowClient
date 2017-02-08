@@ -62,7 +62,7 @@ namespace SmartShow_Client
                 //audioFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse("audio/mpeg");
 
                 //var requestContent = new StreamContent(new FileStream(fileName, FileMode.Open));
-                var requestContent = new StreamContent(fuUploadFile.FileContent);
+                //var requestContent = new StreamContent();
                 //requestContent.Add(audioFileContent, "audio", filePathToUpload);
                 using (var client = new HttpClient())
                 {
@@ -70,7 +70,7 @@ namespace SmartShow_Client
 
                     client.BaseAddress = new Uri("http://www.filestackapi.com");
 
-                    var result = client.PostAsync("/api/store/S3?key=" + ConfigurationManager.AppSettings["FilePickerApiKey"].ToString(), requestContent).Result;
+                    var result = client.PostAsync("/api/store/S3?key=" + ConfigurationManager.AppSettings["FilePickerApiKey"].ToString(), audioFileContent).Result;
                     string uploadedFileUrl = "";
 
                     if (result.IsSuccessStatusCode)
